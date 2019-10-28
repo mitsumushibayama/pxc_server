@@ -1,13 +1,14 @@
 import MySQLdb
+import config
 
 
 def get_all_user():
     connector = MySQLdb.connect(
-        user = 'user',
-        passwd = 'pass',
-        host = 'localhost',
-        db = 'db',
-        charset = 'utf8')
+        user = config.user,
+        passwd = config.passwd,
+        host = config.host,
+        db = config.db,
+        charset = config.charset)
 
     cursor = connector.cursor()
     sql = "select * from users;"
@@ -20,7 +21,7 @@ def get_all_user():
         user_name  = row[1]
         height = row[2]
         gender = row[3]
-        user_picture = row[4]
+        user_picture_URL = row[4]
 
         response = {
             "user_id" : user_id,
@@ -41,11 +42,11 @@ def get_all_user():
 
 def add_user(user):
     connector = MySQLdb.connect(
-        user = 'pass',
-        passwd ='pass',
-        host = 'localhost',
-        db = 'db',
-        charset = 'utf8')
+        user = config.user,
+        passwd = config.passwd,
+        host = config.host,
+        db = config.db,
+        charset = config.charset)
 
     cursor = connector.cursor()
     sql = "insert into users values (%s, %s, %s, %s, %s);"
@@ -70,11 +71,11 @@ def add_user(user):
 
 def get_id_user(user_id):
     connector = MySQLdb.connect(
-        user = 'user',
-        passwd = 'pass',
-        host = 'localhost',
-        db = 'db',
-        charset = 'utf8')
+        user = config.user,
+        passwd = config.passwd,
+        host = config.host,
+        db = config.db,
+        charset = config.charset)
 
     cursor = connector.cursor()
     sql = "select * from users where user_id = %s;"% (user_id)
@@ -87,7 +88,7 @@ def get_id_user(user_id):
         user_name  = row[1]
         height = row[2]
         gender = row[3]
-        user_picture = row[4]
+        user_picture_URL = row[4]
 
     response = {
             "user_id" : user_id,
@@ -108,14 +109,14 @@ def get_id_user(user_id):
 
 def update_user(user_id,user):
     connector = MySQLdb.connect(
-        user = 'user',
-        passwd = 'pass',
-        host = 'localhost',
-        db = 'db',
-        charset = 'utf8')
+        user = config.user,
+        passwd = config.passwd,
+        host = 'config.host,
+        db = config.db,
+        charset = config.charset)
 
     cursor = connector.cursor()
-    sql = "update users set name='%s', height=%s, gender='%s', user_picture_URL$
+    sql = "update users set name='%s', height=%s, gender='%s', user_picture_URL;"% (user.name, user.height, user.gender, user.user_picture_URL)
     cursor.execute(sql)
     connector.commit()
     sql = "select user_id from users where user_id =%s;"% (user_id)
